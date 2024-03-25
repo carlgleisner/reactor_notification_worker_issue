@@ -57,7 +57,12 @@ defmodule ReactorNotificationWorkerIssue.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      {:ash, "~> 2.20"},
+      {:ash_postgres, "~> 1.5"},
+      {:ash_phoenix, "~> 1.3"},
+      {:ash_authentication, "~> 3.12"},
+      {:ash_authentication_phoenix, "~> 1.9"}
     ]
   end
 
@@ -74,7 +79,10 @@ defmodule ReactorNotificationWorkerIssue.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["tailwind reactor_notification_worker_issue", "esbuild reactor_notification_worker_issue"],
+      "assets.build": [
+        "tailwind reactor_notification_worker_issue",
+        "esbuild reactor_notification_worker_issue"
+      ],
       "assets.deploy": [
         "tailwind reactor_notification_worker_issue --minify",
         "esbuild reactor_notification_worker_issue --minify",

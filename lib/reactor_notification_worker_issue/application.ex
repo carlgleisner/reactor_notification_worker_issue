@@ -10,10 +10,13 @@ defmodule ReactorNotificationWorkerIssue.Application do
     children = [
       ReactorNotificationWorkerIssueWeb.Telemetry,
       ReactorNotificationWorkerIssue.Repo,
-      {DNSCluster, query: Application.get_env(:reactor_notification_worker_issue, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query:
+         Application.get_env(:reactor_notification_worker_issue, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: ReactorNotificationWorkerIssue.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: ReactorNotificationWorkerIssue.Finch},
+      {AshAuthentication.Supervisor, otp_app: :reactor_notification_worker_issue},
       # Start a worker by calling: ReactorNotificationWorkerIssue.Worker.start_link(arg)
       # {ReactorNotificationWorkerIssue.Worker, arg},
       # Start to serve requests, typically the last entry
